@@ -12,15 +12,16 @@
                            |                                                   | 
                            |                                                   | 
                      (gen., verify)                                 (gen.,alter, verify)          
-                           |        
-                           |        
-                           |        
-                           |        
-          (Generator Class , Utils.verify)
-                           |             
-                           |             
-                           |             
-       (Write File with O/p & Message [Corrent, Uncorrect])
+                           |                                                   | 
+                           |                                                   | 
+                           |                                                   |        
+                           |                                                   |        
+                           |                                                   |        
+          (Generator Class , Utils.verifyMessage)              (Generator Class, Utils.alterMessage , Utils.verifyMessage)
+                           |                                                   |             
+                           |                                                   |             
+                           |                                                   |             
+    (Write File with O/p & Message [Corrent, Uncorrect])         (Write File with O/p & Message [Corrent, Uncorrect])
 **/
 """
 
