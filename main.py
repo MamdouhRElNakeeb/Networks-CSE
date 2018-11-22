@@ -6,12 +6,12 @@
  *      user input ---------> split the input 
  *                                 | 
  *                                 | 
- *                                 | 
-                            -------  --------------------------
-                           |                                 | 
-                           |                                 | 
-                           |                                 | 
-                     (gen., verify)               (gen.,alter, verify)          
+ *                           Len=2 | Len=3 
+                            -------  -------------------------------------------
+                           |                                                   | 
+                           |                                                   | 
+                           |                                                   | 
+                     (gen., verify)                                 (gen.,alter, verify)          
                            |        
                            |        
                            |        
@@ -32,12 +32,22 @@ from Generator import Generator
 utils = Utils()
 
 
+
+def perform_requirements(mBits, kBits):
+    gen = Generator(mBits, kBits)
+    encodedData = gen.encodeData()
+    return encodedData
+
+
+
 inputLine = input('Your Command Please => ')
 
 splittedInput = inputLine.split('|')
 FileName = splittedInput[0].split('<')[1].strip()
 inputParamLength = len(splittedInput)
 
+
+# Organize file_name if you type it with .txt or not
 file_name = FileName
 if FileName.find('.') == -1:
     file_name = FileName + '.txt'
@@ -54,8 +64,7 @@ kBits = kBits if kBits.find('\n') == -1 else kBits[:-1]
 # Length == 2 -> Generator & Verfiy
 # Case Of Generation & Verification
 if inputParamLength == 2:
-    gen = Generator(mBits, kBits)
-    encodedData = gen.encodeData()
+    encodedData = perform_requirements(mBits,kBits)
     utils.writeFile('transmitted_msg', encodedData)
     # Verification Part
     utils.verifyMessage(encodedData, kBits)
@@ -67,7 +76,12 @@ if inputParamLength == 2:
 if inputParamLength == 3:
     # get the alter Bit
     alterBit = int(splittedInput[1].strip().split(' ')[1])
-    print('2nd Case', alterBit)
+    # Perform the Same Technique
+    encodedData = perform_requirements(mBits,kBits)
+    alteredMessage = utils.alterMessage(alterBit,encodedData)
+    utils.writeFile('transmitted_msg_alter', alteredMessage)
+    # Verification Part
+    utils.verifyMessage(alteredMessage, kBits)
 
 
 

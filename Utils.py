@@ -92,20 +92,36 @@ class Utils:
     """
         /**
             @function: alterMessage
-            @desc: 
+            @desc: Invert the TargetBit in a given message
             @param { ClassProp } self
-            @param { Number } bit
-            @param { String } msg
+            @param { Number } targetBit
+            @param { String } msg | EncodedMessage
             @return { String } alteredMessage
         */
 
+        message -> 01100
+        targetBit -> 2
+        expectedOutput -> 00100
+        Steps : 
+            message -> 1) Split it to 3 parts
+                            - Part 1 : Before the Target Bit
+                            - Part 2 : Target Bit
+                            - Part 1 : After the Target Bit
+                        2) Convert Part 2 to number then Invert Part 2
+                        3) Concatenate the Message Again with Part 2 Change
+
     """
-    def alterMessage(self, bit, msg):
+    def alterMessage(self, targetBit, msg):
 
+        # 1) Split Message
+        beforeTargetBit = msg[:targetBit - 1]
+        targetBit = int(msg[targetBit - 1])
+        afterTargetBit = msg[targetBit:]
+        # 2) Invert the Bit
+        targetBit = targetBit ^ 1
 
-
-
-
+        # 3) Concatenate the Message
+        alteredMessage = beforeTargetBit + str(targetBit) + afterTargetBit
         return alteredMessage
 
 
